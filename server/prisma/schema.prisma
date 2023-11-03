@@ -21,4 +21,6 @@ model User {
 
 	// hashed Refresh token
 	hashedRt String?
+
+	@@map("users")
 }
