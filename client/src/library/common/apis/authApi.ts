@@ -1,4 +1,6 @@
 import {fetch} from 'library/utilities/fetch'
 
-export const loadUser = () => 
-	fetch.get(``)
+import { ISignInParams } from '../interfaces/auth'
+
+export const loadUser = (params: ISignInParams) => 
+	fetch.post(`/auth/local/signin`, params)

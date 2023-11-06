@@ -2,18 +2,15 @@ import {connect} from 'react-redux'
 
 import {RootState} from 'core/store/configureStore'
 
-import * as selectors from 'library/common/selectors/testSelector'
-import * as actions from 'library/common/actions/testActions'
+import * as actions from 'library/common/actions/authActions'
 
 import Login from './Login'
 
 const mapStateToProps = (store: RootState) => ({
-	isLoading: selectors.getTestIsLoading(store),
-	title: selectors.getTestDataTitle(store),
 })
 
 const mapDispatchToProps = {
-	pushTestAction: actions.test2.request,
+	signIn: actions.login.request
 }
 
 export type ContainerProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps

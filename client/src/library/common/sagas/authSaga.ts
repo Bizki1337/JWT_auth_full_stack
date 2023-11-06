@@ -1,14 +1,14 @@
 import {call, put, takeLatest} from 'redux-saga/effects'
 
 import * as api from '../apis/authApi'
-import * as types from '../types/testTypes'
-import * as actions from '../actions/testActions'
+import * as actions from '../actions/authActions'
+import * as types from '../types/authTypes'
 
-function* requestTestDataSaga() {
+function* LoginSaga(action: ReturnType<typeof actions.login.request>) {
 	try {
-		// const {data: {data}} = yield call(api.loadTestDataRequest)
-		// yield put(actions.test2.success(data))
-		yield put(actions.test2.success({id: 1, title: 'some title'}))
+		const {data: {data}} = yield call(api.loadUser, action.payload)
+		console.log('data', data)
+		// yield put(actions.login.success())
 	} catch (error: unknown) {
 		if (error instanceof Error) {
 			console.error(error)
@@ -17,5 +17,5 @@ function* requestTestDataSaga() {
 }
 
 export default function* test() {
-	yield takeLatest(types.test.REQUEST, requestTestDataSaga)
+	yield takeLatest(types.login.REQUEST, LoginSaga)
 }

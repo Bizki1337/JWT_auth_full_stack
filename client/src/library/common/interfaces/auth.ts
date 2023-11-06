@@ -3,6 +3,11 @@ export interface ITokens {
 	refresh_token: string
 }
 
+export interface ISignInParams {
+	login: string
+	password: string
+}
+
 export interface IUser {
 	id: number
 	login: string

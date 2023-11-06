@@ -3,3 +3,9 @@ export enum user {
 	SUCCESS = 'USER/SUCCESS',
 	FAILURE = 'USER/FAILURE',
 }
+
+export enum login {
+	REQUEST = 'LOGIN/REQUEST',
+	SUCCESS = 'LOGIN/SUCCESS',
+	FAILURE = 'LOGIN/FAILURE',
+}

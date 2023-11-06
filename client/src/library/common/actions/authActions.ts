@@ -9,3 +9,9 @@ export const user = createAsyncAction(
 	types.user.SUCCESS,
 	types.user.FAILURE,
 )<number, interfaces.IUser, string>()
+
+export const login = createAsyncAction(
+	types.login.REQUEST,
+	types.login.SUCCESS,
+	types.login.FAILURE,
+)<interfaces.ISignInParams, interfaces.ITokens, string>()
