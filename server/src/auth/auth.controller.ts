@@ -20,7 +20,7 @@ export class AuthController {
 	@Public()
 	@Post('local/signin')
 	@HttpCode(HttpStatus.OK)
-	signinLocal(@Body() dto: SigninDto): Promise<Tokens> {
+	signinLocal(@Body() dto: SigninDto): Promise<{tokens: Tokens, user: any}> {
 		return this.authService.signinLocal(dto)
 	}
 
@@ -30,6 +30,7 @@ export class AuthController {
 		return this.authService.logout(userId)
 	}
 
+	@Public()
 	@UseGuards(RtGuard)
 	@Post('refresh')
 	@HttpCode(HttpStatus.OK)

@@ -30,9 +30,9 @@ export class AuthService {
 		return tokens
 	}
 
-	async signinLocal(dto: SigninDto): Promise<Tokens> {
+	async signinLocal(dto: SigninDto): Promise<{tokens: Tokens, user: any}> {
 		const {login, password} = dto
-		const user = await await this.prisma.user.findUnique({
+		const user = await this.prisma.user.findUnique({
 			where: {login}
 		})
 
@@ -44,7 +44,14 @@ export class AuthService {
 		const tokens = await this.getTokens(user.id, user.login)
 
 		await this.updateRTHash(user.id, tokens.refresh_token)
-		return tokens
+		return {
+			tokens,
+			user: {
+				id: user.id,
+				login: user.login,
+				name: user.name,
+			},
+		}
 	}
 
 	async logout(userId: number) {
@@ -65,7 +72,7 @@ export class AuthService {
 		const user = await this.prisma.user.findUnique({
 			where: {id: userId}
 		})
-		if (!user) throw new ForbiddenException('Access denied')
+		if (!user || !user.hashedRt) throw new ForbiddenException('Access denied')
 
 		const rtMatches = await bcrypt.compare(rt, user.hashedRt)
 
