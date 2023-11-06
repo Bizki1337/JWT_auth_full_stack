@@ -1,0 +1,5 @@
+export enum user {
+	REQUEST = 'USER/REQUEST',
+	SUCCESS = 'USER/SUCCESS',
+	FAILURE = 'USER/FAILURE',
+}

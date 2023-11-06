@@ -1,9 +1,9 @@
 import {all, fork} from 'redux-saga/effects'
 
-import testSaga from 'library/common/sagas/testSaga'
+import authSaga from 'library/common/sagas/authSaga'
 
 export default function* coreSaga() {
 	yield all([
-		fork(testSaga),
+		fork(authSaga),
 	])
 }

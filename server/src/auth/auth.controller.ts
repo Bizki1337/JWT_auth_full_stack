@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, HttpStatus, Post, Req, UseGuards } from '@nestjs/common'
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Req, UseGuards } from '@nestjs/common'
 import { GetCurrentUser, GetCurrentUserId, Public } from 'src/common/decorators'
 import { RtGuard } from 'src/common/guards'
 

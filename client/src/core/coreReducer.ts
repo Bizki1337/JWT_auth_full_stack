@@ -2,11 +2,11 @@ import {combineReducers} from 'redux'
 import {connectRouter} from 'connected-react-router'
 import {History} from 'history'
 
-import testReducer from 'library/common/reducers/testReducer'
+import authReducer from 'library/common/reducers/authReducer'
 
 const createCoreReducer = (history: History) => combineReducers({
 	router: connectRouter(history),
-	test: testReducer,
+	auth: authReducer,
 })
 
 export default createCoreReducer
