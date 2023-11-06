@@ -5,6 +5,8 @@ import configureStore, {history} from 'core/store/configureStore'
 import CoreRoutes from 'core/routes/CoreRoutes'
 import CustomRouter from 'core/routes/CustomRouter'
 
+import 'resources/styles/index.scss'
+
 export const store = configureStore()
 
 async function render() {
