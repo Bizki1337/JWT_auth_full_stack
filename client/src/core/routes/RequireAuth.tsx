@@ -6,6 +6,7 @@ import { ContainerProps } from './RequireAuthContainer'
 const RequireAuth = ({
     isFetchingUser,
     access_token,
+    user,
     loadUser
 }: ContainerProps) => {
 
@@ -15,9 +16,13 @@ const RequireAuth = ({
 
     const location = useLocation()
 
+    console.log('user', user)
+
     if (!access_token) return <Navigate to='/login' state={{ from: location }} />
 
     if (isFetchingUser) return <div>loading user...</div>
+
+    // if (!user && !isFetchingUser) return <Navigate to='/login' replace state={{ from: location }} />
 
     return (
         <div>

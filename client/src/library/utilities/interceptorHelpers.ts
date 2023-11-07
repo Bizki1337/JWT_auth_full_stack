@@ -2,12 +2,16 @@ import {AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axio
 import {Store} from 'redux'
 
 // import {logout, setTokens} from 'library/common/actions/authActions'
-import {setTokens} from 'library/common/actions/authActions'
+import {logout, setTokens} from 'library/common/actions/authActions'
 
 const onRequest = (config: any) => {
-    const token = localStorage.getItem('access_token')
+    const accessToken = localStorage.getItem('access_token')
+    const refreshToken = localStorage.getItem('refresh_token')
+    console.log('on request', config.url)
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    if (token) config.headers!['Authorization'] = 'Bearer ' + token
+    const isRefresh = config.url.includes('/refresh')
+    if (isRefresh && refreshToken) config.headers!['Authorization'] = 'Bearer ' + refreshToken
+    if (accessToken && !isRefresh) config.headers!['Authorization'] = 'Bearer ' + accessToken
     return config
 }
 
@@ -46,14 +50,11 @@ const onResponseError = async (
         if (error.response.status === 401 && !originalConfig._retry) {
             originalConfig._retry = true
             try {
-                const {data: newTokens} = await axiosInstance.post(refreshURL, {
-                    refresh_token: localStorage.getItem('refresh_token')
-                })
+                const {data: newTokens} = await axiosInstance.post(refreshURL)
                 dispatch(setTokens(newTokens))
                 return axiosInstance(originalConfig) as unknown as AxiosError
             } catch (_error) {
-				console.log('logout')
-                // dispatch(logout())
+                dispatch(logout())
                 return Promise.reject(_error)
             }
         }

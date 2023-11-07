@@ -57,9 +57,16 @@ function setTokensSaga(action: ReturnType<typeof actions.setTokens>) {
 	localStorage.setItem('refresh_token', refresh_token)
 }
 
+function* logoutSaga() {
+	localStorage.removeItem('access_token')
+	localStorage.removeItem('refresh_token')
+	yield put(push('/login'))
+}
+
 export default function* auth() {
 	yield takeLatest(types.signIn.REQUEST, LoginSaga)
 	yield takeLatest(types.signUp.REQUEST, registerSaga)
 	yield takeLatest(types.user.REQUEST, userSaga)
 	yield takeLatest(types.auth.SET_TOKENS, setTokensSaga)
+	yield takeLatest(types.auth.LOGOUT, logoutSaga)
 }

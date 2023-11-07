@@ -7,6 +7,8 @@ export enum user {
 export enum auth {
 	SUCCESS = 'AUTH/SUCCESS',
 	FAILURE = 'AUTH/FAILURE',
+	SET_TOKENS = 'AUTH/SET_TOKENS',
+	LOGOUT = 'AUTH/LOGOUT'
 }
 
 export enum signIn {
@@ -15,8 +17,4 @@ export enum signIn {
 
 export enum signUp {
 	REQUEST = 'SIGNUP/REQUEST',
-}
-
-export enum auth {
-	SET_TOKENS = 'AUTH/SET_TOKENS'
 }

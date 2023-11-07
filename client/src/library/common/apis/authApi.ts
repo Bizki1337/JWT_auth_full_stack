@@ -10,3 +10,6 @@ export const signUp = (params: ISignInParams) =>
 
 export const requestUser = () =>
 	fetch.get('/auth/user/details')
+
+export const logout = () =>
+	fetch.post('/auth/logout')

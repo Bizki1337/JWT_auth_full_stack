@@ -14,5 +14,6 @@ export const signIn = createAction(types.signIn.REQUEST)<interfaces.ISignInParam
 export const signUp = createAction(types.signUp.REQUEST)<interfaces.ISignUpParams>()
 export const authSuccess = createAction(types.auth.SUCCESS)<interfaces.IUser>()
 export const authFailure = createAction(types.auth.FAILURE)<undefined>()
+export const logout = createAction(types.auth.LOGOUT)<undefined>()
 
 export const setTokens = createAction(types.auth.SET_TOKENS)<interfaces.ITokens>();
