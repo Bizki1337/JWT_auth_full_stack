@@ -1,8 +1,12 @@
 import { useState } from 'react'
 
+import { ContainerProps } from './SignUpContainer'
+
 import styles from './signUp.module.scss'
 
-const SignUp = () => {
+const SignUp = ({
+	signUp
+}: ContainerProps) => {
 	const [state, setState] = useState({
 		login: '',
         name: '',
@@ -33,6 +37,9 @@ const SignUp = () => {
 					onChange={(e) => setState({...state, password: e.target.value})}
 				/>
 			</div>
+			<button
+				onClick={() => signUp(state)}
+			>Зарегистрироваться</button>
 		</div>
 	)
 }

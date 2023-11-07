@@ -4,6 +4,7 @@ import {createRoot} from 'react-dom/client'
 import configureStore, {history} from 'core/store/configureStore'
 import CoreRoutes from 'core/routes/CoreRoutes'
 import CustomRouter from 'core/routes/CustomRouter'
+import setupInterceptors from 'library/utilities/setupInterceptors'
 
 import 'resources/styles/index.scss'
 
@@ -25,3 +26,5 @@ async function render() {
 }
 
 render()
+
+setupInterceptors(store)

@@ -3,14 +3,14 @@ import {connect} from 'react-redux'
 import {RootState} from 'core/store/configureStore'
 
 import {user} from 'library/common/actions/authActions'
-import {getUser, getIsLoading} from 'library/common/selectors/authSelectors'
+import {getIsFetchingUser, getUser} from 'library/common/selectors/authSelectors'
 
 import RequireAuth from './RequireAuth'
 
 const mapStateToProps = (store: RootState) => ({
 	access_token: localStorage.getItem('access_token'),
-	isFetchingUser: getIsLoading(store),
-	user: getUser(store),
+	isFetchingUser: getIsFetchingUser(store),
+	user: getUser(store)
 })
 
 const mapDispatchToProps = {

@@ -6,13 +6,17 @@ import { IUser } from '../interfaces/auth'
 export type AuthState = Readonly<{
 	isLoading: boolean
 	isError: boolean
+	isFetchingUser: boolean
+	isFetchingUserError: boolean
 	user: IUser | null
 }>
 
 const initialState: AuthState = {
 	isLoading: false,
+	isFetchingUser: false,
 	isError: false,
-	user: null
+	isFetchingUserError: false,
+	user: null,
 }
 
 const authReducer = (
@@ -22,25 +26,52 @@ const authReducer = (
 
 	switch (action.type) {
 
-		case getType(actions.user.request):
+		case getType(actions.signIn):
 			return {
 				...state,
 				isLoading: true,
 			}
 
-		case getType(actions.user.success):
+		case getType(actions.signUp):
+			return {
+				...state,
+				isLoading: true,
+			}
+
+		case getType(actions.authSuccess):
+			return {
+				...state,
+				user: action.payload,
+				isLoading: false,
+				isError: false,
+			}
+
+		case getType(actions.authFailure):
 			return {
 				...state,
 				isLoading: false,
+				isError: true,
+			}
+
+		case getType(actions.user.request):
+			return {
+				...state,
+				isFetchingUser: true,
 				isError: false,
-				user: action.payload
+			}
+
+		case getType(actions.user.success):
+			return {
+				...state,
+				user: action.payload,
+				isFetchingUser: false,
+				isFetchingUserError: false
 			}
 
 		case getType(actions.user.failure):
 			return {
 				...state,
-				isLoading: false,
-				isError: true,
+				isFetchingUserError: true
 			}
 
 		default:

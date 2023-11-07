@@ -4,8 +4,19 @@ export enum user {
 	FAILURE = 'USER/FAILURE',
 }
 
-export enum login {
-	REQUEST = 'LOGIN/REQUEST',
-	SUCCESS = 'LOGIN/SUCCESS',
-	FAILURE = 'LOGIN/FAILURE',
+export enum auth {
+	SUCCESS = 'AUTH/SUCCESS',
+	FAILURE = 'AUTH/FAILURE',
+}
+
+export enum signIn {
+	REQUEST = 'SIGNIN/REQUEST',
+}
+
+export enum signUp {
+	REQUEST = 'SIGNUP/REQUEST',
+}
+
+export enum auth {
+	SET_TOKENS = 'AUTH/SET_TOKENS'
 }

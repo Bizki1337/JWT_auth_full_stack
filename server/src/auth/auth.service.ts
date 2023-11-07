@@ -24,13 +24,13 @@ export class AuthService {
 			}
 		})
 
-		const tokens = await this.getTokens(newUser.id, newUser.login)
+		const tokens = await this.getTokens(newUser.id, newUser.login, newUser.name)
 
 		await this.updateRTHash(newUser.id, tokens.refresh_token)
 		return tokens
 	}
 
-	async signinLocal(dto: SigninDto): Promise<{tokens: Tokens, user: any}> {
+	async signinLocal(dto: SigninDto): Promise<Tokens> {
 		const {login, password} = dto
 		const user = await this.prisma.user.findUnique({
 			where: {login}
@@ -41,17 +41,10 @@ export class AuthService {
 		const passwordMatches = await bcrypt.compare(password, user.hash)
 		if (!passwordMatches) throw new ForbiddenException('Access Denied')
 
-		const tokens = await this.getTokens(user.id, user.login)
+		const tokens = await this.getTokens(user.id, user.login, user.name)
 
 		await this.updateRTHash(user.id, tokens.refresh_token)
-		return {
-			tokens,
-			user: {
-				id: user.id,
-				login: user.login,
-				name: user.name,
-			},
-		}
+		return tokens
 	}
 
 	async logout(userId: number) {
@@ -68,6 +61,15 @@ export class AuthService {
 		})
 	}
 
+	async getUser(userId: number) {
+		const user = await this.prisma.user.findUnique({
+			where: {id: userId}
+		})
+		delete user.hash
+		delete user.hashedRt
+		return user
+	}
+
 	async refreshTokens(userId: number, rt: string) {
 		const user = await this.prisma.user.findUnique({
 			where: {id: userId}
@@ -78,7 +80,7 @@ export class AuthService {
 
 		if (!rtMatches) throw new ForbiddenException('Access denied')
 
-		const tokens = await this.getTokens(user.id, user.login)
+		const tokens = await this.getTokens(user.id, user.login, user.name)
 
 		await this.updateRTHash(user.id, tokens.refresh_token)
 		return tokens
@@ -100,11 +102,12 @@ export class AuthService {
 		return bcrypt.hash(data, 10)
 	}
 
-	async getTokens(userId: number, login: string): Promise<Tokens> {
+	async getTokens(userId: number, login: string, name: string): Promise<Tokens> {
 		const [at, rt] = await Promise.all([
 			this.jwtService.signAsync({
 				sub: userId,
-				login
+				login,
+				name,
 			}, {
 				secret: 'at-secret',
 				// acces token will live 15 minutes
@@ -112,7 +115,8 @@ export class AuthService {
 			}),
 			this.jwtService.signAsync({
 				sub: userId,
-				login
+				login,
+				name,
 			}, {
 				secret: 'rt-secret',
 				// refresh token will live 7 days

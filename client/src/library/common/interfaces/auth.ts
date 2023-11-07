@@ -8,8 +8,16 @@ export interface ISignInParams {
 	password: string
 }
 
-export interface IUser {
-	id: number
+export interface ISignUpParams {
 	login: string
 	name: string
+	password: string
+}
+
+export interface IUser {
+	sub: number
+	login: string
+	name: string
+	iat: number
+	exp: number
 }

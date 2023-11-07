@@ -20,8 +20,14 @@ export class AuthController {
 	@Public()
 	@Post('local/signin')
 	@HttpCode(HttpStatus.OK)
-	signinLocal(@Body() dto: SigninDto): Promise<{tokens: Tokens, user: any}> {
+	signinLocal(@Body() dto: SigninDto): Promise<Tokens> {
 		return this.authService.signinLocal(dto)
+	}
+
+	@Get('user/details')
+	@HttpCode(HttpStatus.OK)
+	getUser(@GetCurrentUserId() userId: number) {
+		return this.authService.getUser(userId)
 	}
 
 	@Post('logout')

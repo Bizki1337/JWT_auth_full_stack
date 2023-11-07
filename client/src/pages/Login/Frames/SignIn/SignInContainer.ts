@@ -10,7 +10,7 @@ const mapStateToProps = (store: RootState) => ({
 })
 
 const mapDispatchToProps = {
-	signIn: actions.login.request
+	signIn: actions.signIn
 }
 
 export type ContainerProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps
