@@ -22,5 +22,18 @@ model User {
 	// hashed Refresh token
 	hashedRt String?
 
+	todo_list Todo[]
+
 	@@map("users")
+}
+
+model Todo {
+	id Int @id @default(autoincrement())
+	createdAt DateTime @default(now())
+	updateAt DateTime @updatedAt
+
+	author   User @relation(fields: [authorId], references: [id])
+  	authorId Int
+
+	text String
 }
