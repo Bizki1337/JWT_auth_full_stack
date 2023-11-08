@@ -13,7 +13,6 @@ const Home = ({
 
 	useEffect(() => {getTodoList()}, [])
 
-	console.log('todoList', todoList)
 	return (
 		<div className={styles.wrapper}>
 			<h2>Todo list</h2>
