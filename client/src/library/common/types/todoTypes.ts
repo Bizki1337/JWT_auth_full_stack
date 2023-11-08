@@ -1,0 +1,5 @@
+export enum todoList {
+	REQUEST = 'TODO/REQUEST',
+	SUCCESS = 'TODO/SUCCESS',
+	FAILURE = 'TODO/FAILURE',
+}

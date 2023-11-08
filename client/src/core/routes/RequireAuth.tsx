@@ -16,8 +16,6 @@ const RequireAuth = ({
 
     const location = useLocation()
 
-    console.log('user', user)
-
     if (!access_token) return <Navigate to='/login' state={{ from: location }} />
 
     if (isFetchingUser) return <div>loading user...</div>

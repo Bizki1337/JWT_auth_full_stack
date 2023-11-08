@@ -7,7 +7,6 @@ import {logout, setTokens} from 'library/common/actions/authActions'
 const onRequest = (config: any) => {
     const accessToken = localStorage.getItem('access_token')
     const refreshToken = localStorage.getItem('refresh_token')
-    console.log('on request', config.url)
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const isRefresh = config.url.includes('/refresh')
     if (isRefresh && refreshToken) config.headers!['Authorization'] = 'Bearer ' + refreshToken
