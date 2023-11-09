@@ -58,6 +58,7 @@ function setTokensSaga(action: ReturnType<typeof actions.setTokens>) {
 }
 
 function* logoutSaga() {
+	yield call(api.logout)
 	localStorage.removeItem('access_token')
 	localStorage.removeItem('refresh_token')
 	yield put(push('/login'))

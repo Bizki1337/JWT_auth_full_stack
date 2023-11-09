@@ -1,23 +1,27 @@
-import Button from 'library/components/Button'
+import { useEffect } from 'react'
 
+import HeaderContainer from './Frames/Header/HeaderContainer'
+
+import { ITodo } from 'library/common/interfaces/todo'
 import { ContainerProps } from './HomeContainer'
 
 import styles from './home.module.scss'
-import { useEffect } from 'react'
-import { ITodo } from 'library/common/interfaces/todo'
 
 const Home = ({
 	todoList,
 	getTodoList,
 }: ContainerProps) => {
 
-	useEffect(() => {getTodoList()}, [])
+	useEffect(() => {
+		getTodoList()
+	}, [])
 
 	return (
 		<div className={styles.wrapper}>
+			<HeaderContainer />
 			<h2>Todo list</h2>
 			{!!todoList.length && todoList.map((todo: ITodo) => (
-				<div>
+				<div key={`todo-${todo.id}`}>
 					<div>id: {todo.id}</div>
 					<div>text: {todo.text}</div>
 				</div>
