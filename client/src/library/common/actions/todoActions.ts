@@ -9,3 +9,9 @@ export const todo = createAsyncAction(
 	types.todoList.SUCCESS,
 	types.todoList.FAILURE,
 )<undefined, ITodo[], string>()
+
+export const saveTodo = createAsyncAction(
+	types.saveTodo.REQUEST,
+	types.saveTodo.SUCCESS,
+	types.saveTodo.FAILURE,
+)<string, ITodo, string>()

@@ -15,6 +15,18 @@ function* todoListSaga() {
 	}
 }
 
+function* addTodoSaga(action: ReturnType<typeof actions.saveTodo.request>) {
+	try {
+		const {data: data} = yield call(api.saveTodo, action.payload)
+		yield put(actions.saveTodo.success(data))
+	} catch (error: unknown) {
+		if (error instanceof Error) {
+			console.error(error)
+		}
+	}
+}
+
 export default function* todo() {
 	yield takeLatest(types.todoList.REQUEST, todoListSaga)
+	yield takeLatest(types.saveTodo.REQUEST, addTodoSaga)
 }

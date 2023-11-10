@@ -12,7 +12,8 @@ const mapStateToProps = (store: RootState) => ({
 })
 
 const mapDispatchToProps = {
-    getTodoList: actions.todo.request
+    getTodoList: actions.todo.request,
+    addTodo: actions.saveTodo.request,
 }
 
 export type ContainerProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps

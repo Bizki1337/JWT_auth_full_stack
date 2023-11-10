@@ -44,6 +44,27 @@ const todoReducer = (
 				isError: true,
 			}
 
+		case getType(actions.saveTodo.request):
+			return {
+				...state,
+				isLoading: true,
+			}
+
+		case getType(actions.saveTodo.success):
+			return {
+				...state,
+				todoList: [...state.todoList, action.payload],
+				isLoading: false,
+				isError: false,
+			}
+
+		case getType(actions.saveTodo.failure):
+			return {
+				...state,
+				isLoading: false,
+				isError: true,
+			}
+
 		default:
 			return state
 	}
